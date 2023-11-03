@@ -1,0 +1,12 @@
+---
+
+- name: Déploiement de la clé SSH
+  hosts: all
+  gather_facts: no
+  tasks:
+  # ansible -m authorized_key -a "user=openit state=present key={{ lookup('file', '~/.ssh/id_ed25519.pub') }}" --ask-pass all
+  - name: Déploiement de la clé publique SSH
+    authorized_key:
+      user: openit
+      state: present
+      key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"

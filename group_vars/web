@@ -1,0 +1,4 @@
+---
+# variables du groupe web
+node_role: web
+http_server: nginx

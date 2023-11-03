@@ -1,0 +1,12 @@
+---
+
+#ansible -m pip -a "name=ansible state=latest executable=~/.local/bin/pip extra_args=--break-system-packages" --become-user=openit localhost
+
+- name: Mise à jour de Ansible
+  pip:
+    name: ansible
+    state: latest
+    executable: ~/.local/bin/pip
+    extra_args: --break-system-packages
+  become_user: openit
+  

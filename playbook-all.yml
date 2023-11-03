@@ -1,0 +1,7 @@
+---
+
+- name: Déploiement sur l'infra
+  hosts: all
+  tasks:
+    - name: Tâches all-nodes
+      include_tasks: tasks/all-nodes.yml

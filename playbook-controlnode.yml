@@ -1,0 +1,8 @@
+---
+
+- name: Opérations sur le controlnode
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Tâches du controlnode
+      include_tasks: tasks/controlnode.yml
