@@ -10,4 +10,6 @@
   hosts: web
   tasks:
     - name: Tâches web
-      include_tasks: tasks/web.yml
+      include_tasks: tasks/web-apache.yml
+      include_tasks: tasks/web-wp.yml
+      include_tasks: tasks/web-nfs.yml

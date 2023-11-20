@@ -1,0 +1,42 @@
+---
+
+#wget https://wordpress.org/latest.zip -O /tmp/wordpress.zip
+# - name: Télécharger wordpress
+#   get_url:
+#     url: https://wordpress.org/latest.zip
+#     dest: /tmp/wordpress.zip
+
+#sudo apt install unzip
+# - name: Installer unzip
+#   apt:
+#     name: unzip
+#     state: latest
+
+#unzip latest.zip
+# - name: Dézipper wordpress
+#   unarchive:
+#     src: /tmp/wordpress.zip
+#     dest: /var/www/
+#     remote_src: yes
+
+# Configuration de git
+- name: Configuration de Git
+  copy:
+    src: files/root-gitconfig
+    dest: /root/.gitconfig
+
+# Autre façon de faire : git checkout
+- name: Synchroniser Wordpress depuis Github
+  git:
+    repo: "{{ wordpress_repo }}"
+    dest: "{{ wordpress_path }}"
+    version: "{{ wordpress_version }}"
+    force: true
+
+#sudo chown -R www-data:www-data /var/www/wordpress
+- name: Changer le propriétaire des fichiers de wordpress
+  file:
+    path: "{{ wordpress_path }}"
+    owner: "{{ wordpress_owner }}"
+    group: "{{ wordpress_group }}"
+    recurse: true
