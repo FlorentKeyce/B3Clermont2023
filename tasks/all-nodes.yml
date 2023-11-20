@@ -1,8 +1,11 @@
 ---
 
-# ansible -m ping
-- name: Essayer d'accéder à l'infrastructure
-  ping: 
+#ansible -m apt -a "update_cache=yes name=* state=latest" all
+- name: Mettre à jour les systèmes
+  apt:
+    update_cache: yes
+    name: "*"
+    state: latest
 
 #ansible -m hostname -a "name={{ inventory_hostname }}" all
 - name: Changer le hostname
@@ -16,9 +19,4 @@
     regexp: '^127\.0\.1\.1'
     line: "127.0.1.1       {{ inventory_hostname }}"
 
-#ansible -m apt -a "update_cache=yes name=* state=latest" all
-- name: Mettre à jour les systèmes
-  apt:
-    update_cache: yes
-    name: "*"
-    state: latest
+

@@ -4,3 +4,7 @@ ansible -m hostname -a "name={{ inventory_hostname }}" all
 ansible -m lineinfile -a "path=/etc/hosts regexp='^127\.0\.1\.1' line='127.0.1.1       {{ inventory_hostname }}'" all
 ansible -m pip -a "name=ansible state=latest executable=~/.local/bin/pip extra_args=--break-system-packages" --become-user=openit localhost
 ansible -m apt -a "update_cache=yes name=* state=latest" all
+
+Avec Playbook :
+
+ansible-playbook playbook-all.yml
