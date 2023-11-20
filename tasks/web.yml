@@ -54,3 +54,34 @@
     owner: "{{ wordpress_owner }}"
     group: "{{ wordpress_group }}"
     recurse: true
+
+# Désactivation du virtualhost 000-default de Apache
+- name: Désactivation de 000-default
+  file:
+    path: /etc/apache2/sites-enabled/000-default.conf
+    state: absent
+
+# Création du vhost wordpress
+- name: Configuration du vhost wordpress
+  template:
+    src: files/vhost-wordpress
+    dest: /etc/apache2/sites-available/wordpress.conf
+
+# Activation du vhost wordpress
+- name: Activation du vhost wordpress
+  file:
+    src: /etc/apache2/sites-available/wordpress.conf
+    dest: /etc/apache2/sites-enabled/wordpress.conf
+    state: link
+
+# sudo a2enmod proxy_fcgi
+- name: Activation du module proxy_fcgi
+  apache2_module:
+    name: proxy_fcgi
+    state: present
+
+# sudo systemctl restart apache2
+- name: Redémarrer Apache
+  service: 
+    name: apache2
+    state: restarted
