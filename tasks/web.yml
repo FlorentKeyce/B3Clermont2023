@@ -42,15 +42,15 @@
 # Autre façon de faire : git checkout
 - name: Synchroniser Wordpress depuis Github
   git:
-    repo: https://github.com/WordPress/WordPress.git
-    dest: /var/www/wordpress/
+    repo: "{{ wordpress_repo }}"
+    dest: "{{ wordpress_path }}"
     version: "{{ wordpress_version }}"
     force: true
 
 #sudo chown -R www-data:www-data /var/www/wordpress
 - name: Changer le propriétaire des fichiers de wordpress
   file:
-    path: /var/www/wordpress
-    owner: www-data
-    group: www-data
+    path: "{{ wordpress_path }}"
+    owner: "{{ wordpress_owner }}"
+    group: "{{ wordpress_group }}"
     recurse: true
