@@ -2,3 +2,5 @@
 # variables du groupe web
 node_role: web
 http_server: nginx
+
+wordpress_version: 6.4.1

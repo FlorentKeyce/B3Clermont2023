@@ -1,2 +1,56 @@
 ---
 
+# sudo apt install apache2 git
+- name: Installer les paquets nécessaires
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - apache2
+    - git
+
+# Autre forme qui occupe moins de lignes
+#- name: Installer Apache
+#  apt: name=apache2 state=latest
+
+#wget https://wordpress.org/latest.zip -O /tmp/wordpress.zip
+# - name: Télécharger wordpress
+#   get_url:
+#     url: https://wordpress.org/latest.zip
+#     dest: /tmp/wordpress.zip
+
+#sudo apt install unzip
+# - name: Installer unzip
+#   apt:
+#     name: unzip
+#     state: latest
+
+#unzip latest.zip
+# - name: Dézipper wordpress
+#   unarchive:
+#     src: /tmp/wordpress.zip
+#     dest: /var/www/
+#     remote_src: yes
+
+# Configuration de git
+- name: Configuration de Git
+  copy:
+    src: files/root-gitconfig
+    dest: /root/.gitconfig
+
+# Autre façon de faire : git checkout
+- name: Synchroniser Wordpress depuis Github
+  git:
+    repo: https://github.com/WordPress/WordPress.git
+    dest: /var/www/wordpress/
+    version: "{{ wordpress_version }}"
+    force: true
+
+#sudo chown -R www-data:www-data /var/www/wordpress
+- name: Changer le propriétaire des fichiers de wordpress
+  file:
+    path: /var/www/wordpress
+    owner: www-data
+    group: www-data
+    recurse: true
