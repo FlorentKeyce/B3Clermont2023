@@ -55,3 +55,18 @@ sudo mkdir -p /var/www/wordpress
 sudo mount /var/www/wordpress
 
 
+Sur Infra3 :
+
+# Installer et configurer MariaDB
+sudo apt install mariadb-server
+sudo nano /etc/mysql/mariadb.conf.d/51-bind-address.cnf
+    [mysqld]
+    bind-address = 0.0.0.0
+
+sudo systemctl restart mariadb
+
+sudo mariadb 
+    CREATE DATABASE wordpress;
+    GRANT ALL PRIVILEGES on wordpress.* TO wp_user@'%' IDENTIFIED BY 'wp_passwd';
+    FLUSH PRIVILEGES;
+
