@@ -3,3 +3,7 @@
 project_name: Keyce Web Infrastructure # Nom du projet
 project_url: kwi.keyce
 project_email: admin@kwi.keyce
+
+wordpress_path: /var/www/wordpress/
+
+phpfpm_port: 5555

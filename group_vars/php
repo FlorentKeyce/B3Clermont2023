@@ -3,4 +3,3 @@
 node_role: php
 php_version: 8.0
 
-phpfpm_port: 5555

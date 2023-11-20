@@ -1,2 +1,15 @@
 ---
 
+# sudo apt install nfs-kernel-server
+- name: Installer de NFS server
+  apt:
+    name: nfs-kernel-server
+    state: latest
+
+# sudo nano /etc/exports
+- name: Configurer /etc/exports
+  lineinfile:
+    path: /etc/exports
+    regexp: "^{{ wordpress_path }}[\t| ]"
+    line: "{{ wordpress_path }}	{{ hostvars[groups['php'][0]]['ansible_host'] }}(rw,sync,fsid=0,no_subtree_check)"
+  notify: "Redémarrer nfs-kernel-server"

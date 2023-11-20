@@ -9,7 +9,7 @@
 # groups['php'][0] : premier serveur du groupe php
 # hostvars[host]['ansible_host'] : variable ansible_host du serveur 'host'
 
-    ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://{{ hostvars[groups['php'][0]]['ansible_host'] }}:{{ hostvars[groups['php'][0]]['phpfpm_port'] }}{{ wordpress_path }}/$1
+    ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://{{ hostvars[groups['php'][0]]['ansible_host'] }}:{{ phpfpm_port }}{{ wordpress_path }}/$1
 
     DirectoryIndex /index.php index.php
 </VirtualHost>
