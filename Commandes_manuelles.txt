@@ -8,6 +8,7 @@ wget https://wordpress.org/latest.zip
 sudo apt install unzip
 unzip latest.zip
 sudo mv wordpress /var/www/
+sudo chown -R www-data:www-data /var/www/wordpress
 
 # Configurer Apache 
 sudo nano /etc/apache2/sites-enabled/000-default.conf
