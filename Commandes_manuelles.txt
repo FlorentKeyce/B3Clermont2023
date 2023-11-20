@@ -37,7 +37,7 @@ sudo systemctl restart nfs-kernel-server
 Sur Infra2 :
 
 # Installer et configurer PHP-FPM
-sudo apt install php-fpm
+sudo apt install php-fpm php-mysql
 sudo nano /etc/php/8.2/fpm/pool.d/www.conf
 # Commenter la ligne "listen =" et remplacer :
     ;listen = /run/php/php8.2-fpm.sock
