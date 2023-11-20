@@ -5,3 +5,9 @@
   tasks:
     - name: Tâches all-nodes
       include_tasks: tasks/all-nodes.yml
+
+- name: Déploiement sur les serveurs web
+  hosts: web
+  tasks:
+    - name: Tâches web
+      include_tasks: tasks/web.yml
