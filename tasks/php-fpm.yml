@@ -1,2 +1,26 @@
 ---
 
+# sudo apt install php-fpm php-mysql
+- name: Installer les paquets nécessaires
+  apt:
+    name: 
+      - php-fpm
+      - php-mysql
+    state: latest
+
+- name: Récupérer la version de PHP
+  shell: php --version | head -n 1 | sed -E 's/^PHP ([0-9]\.[0-9]).*/\1/'
+  register: php_version
+  changed_when: false
+
+# php_version.stdout contient désormais le numéro de version de PHP
+
+#- name: Afficher le numéro de version de PHP
+#  debug:
+#    var: php_version.stdout
+
+- name: Configuration de PHP-FPM
+  template:
+    src: files/fpm.conf
+    dest: "/etc/php/{{ php_version.stdout }}/fpm/pool.d/wordpress.conf"
+  notify: Redémarrer PHP-FPM

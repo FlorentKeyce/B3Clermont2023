@@ -34,3 +34,8 @@
       include_tasks: tasks/php-fpm.yml
     - name: Tâches PHP NFS
       include_tasks: tasks/php-nfs.yml
+  handlers:
+  - name: Redémarrer PHP-FPM
+    service: 
+      name: "php{{ php_version.stdout }}-fpm"
+      state: restarted
