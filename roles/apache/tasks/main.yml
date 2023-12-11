@@ -1,14 +1,10 @@
 ---
 
-# sudo apt install apache2 git
+# sudo apt install apache2
 - name: Installer les paquets nécessaires
   apt:
-    name: "{{ packages }}"
+    name: apache2
     state: latest
-  vars:
-    packages:
-    - apache2
-    - git
 
 # Autre forme qui occupe moins de lignes
 #- name: Installer Apache
@@ -24,7 +20,7 @@
 # Création du vhost wordpress
 - name: Configuration du vhost wordpress
   template:
-    src: files/vhost-wordpress
+    src: templates/vhost-wordpress
     dest: /etc/apache2/sites-available/wordpress.conf
   notify: Redémarrer Apache
 

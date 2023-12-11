@@ -5,17 +5,10 @@
   roles:
     - common
     - nfs
+    - apache
   tasks:
-    - name: Tâches web Apache
-      include_tasks: tasks/web-apache.yml
     - name: Tâches web WP
       include_tasks: tasks/web-wp.yml
-  handlers:
-  # sudo systemctl restart apache2
-  - name: Redémarrer Apache
-    service: 
-      name: apache2
-      state: restarted
 
 - name: Déploiement sur les serveurs PHP
   hosts: php
