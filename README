@@ -1,7 +1,7 @@
 Projet Ansible de déploiement d'une infrastructure web (http/php/mariadb).
 
-Nécessite le rôle lukasic.mariadb :
-                ansible-galaxy install --roles-path ./roles/ lukasic.mariadb
+Nécessite un rôle Ansible Galaxy :
+                ansible-galaxy install --roles-path ./roles/ -r requirements.yml
 
 Comment l'utiliser :
 
