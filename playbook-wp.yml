@@ -1,14 +1,9 @@
 ---
 
-- name: Déploiement sur l'infra
-  hosts: all
-  tasks:
-    - name: Tâches all-nodes
-      include_tasks: tasks/all-nodes.yml
-
 - name: Déploiement sur les serveurs web
   hosts: web
   roles:
+    - common
     - nfs
   tasks:
     - name: Tâches web Apache
@@ -30,6 +25,7 @@
 - name: Déploiement sur les serveurs PHP
   hosts: php
   roles:
+    - common
     - nfs
   tasks:
     - name: Tâches PHP-FPM
@@ -43,4 +39,5 @@
 - name: Déploiement sur les serveurs DB
   hosts: db
   roles:
+    - common
     - lukasic.mariadb
