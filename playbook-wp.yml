@@ -10,12 +10,6 @@
   hosts: web
   roles:
     - nfs
-  vars:
-    - nfs_function: server
-    - nfs_exports:
-      - fs: "{{ wordpress_path }}"
-        client: "{{ hostvars[groups['php'][0]]['ansible_host'] }}"
-        options: rw,sync,fsid=0,no_subtree_check
   tasks:
     - name: Tâches web Apache
       include_tasks: tasks/web-apache.yml
@@ -37,13 +31,6 @@
   hosts: php
   roles:
     - nfs
-  vars:
-    - nfs_function: client
-    - nfs_mounts:
-      - server: "{{ hostvars[groups['web'][0]]['ansible_host'] }}"
-        server_fs: "{{ wordpress_path }}"
-        mountpoint: "{{ wordpress_path }}"
-        options: defaults
   tasks:
     - name: Tâches PHP-FPM
       include_tasks: tasks/php-fpm.yml
@@ -57,15 +44,3 @@
   hosts: db
   roles:
     - lukasic.mariadb
-  vars:
-    mariadb_server_params:
-      - option: "bind-address"
-        section: "mysqld"
-        value: "0.0.0.0"
-    mariadb_databases:
-      - "{{ wordpress_db }}"
-    mariadb_users:
-      - host: "%"
-        name: "{{ wordpress_db_user }}"
-        password: "{{ wordpress_db_pass }}"
-        priv: "{{ wordpress_db }}.*:ALL"
