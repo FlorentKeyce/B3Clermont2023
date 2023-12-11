@@ -8,12 +8,16 @@
       - php-mysql
     state: latest
 
+# Avec Ansible, les modules command et shell ne doivent être utilisés
+# qu'en dernier recours, c'est à dire, lorsqu'il n'existe pas de 
+# module spécifique pour réaliser une opération.
+# Ici, il n'existe pas de module pour récupérer directement la version de PHP
+# php_version.stdout contient désormais le numéro de version de PHP
+
 - name: Récupérer la version de PHP
   shell: php --version | head -n 1 | sed -E 's/^PHP ([0-9]\.[0-9]).*/\1/'
   register: php_version
   changed_when: false
-
-# php_version.stdout contient désormais le numéro de version de PHP
 
 #- name: Afficher le numéro de version de PHP
 #  debug:
