@@ -11,11 +11,6 @@
     - name: Tâches web WP
       include_tasks: tasks/web-wp.yml
   handlers:
-  # sudo systemctl restart nfs-kernel-server
-  - name: Redémarrer nfs-kernel-server
-    service: 
-      name: nfs-kernel-server
-      state: restarted
   # sudo systemctl restart apache2
   - name: Redémarrer Apache
     service: 
