@@ -26,3 +26,11 @@
     service: 
       name: apache2
       state: restarted
+
+- name: Déploiement sur les serveurs PHP
+  hosts: php
+  tasks:
+    - name: Tâches PHP-FPM
+      include_tasks: tasks/php-fpm.yml
+    - name: Tâches PHP NFS
+      include_tasks: tasks/php-nfs.yml
