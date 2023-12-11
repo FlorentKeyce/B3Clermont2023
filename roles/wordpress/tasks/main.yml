@@ -19,11 +19,18 @@
 #     dest: /var/www/
 #     remote_src: yes
 
+# sudo apt install git
+- name: Installer les paquets nécessaires
+  apt:
+    name: git
+    state: latest
+
 # Configuration de git
 - name: Configuration de Git
-  copy:
-    src: files/root-gitconfig
-    dest: /root/.gitconfig
+  git_config:
+    name: safe.directory
+    scope: global
+    value: "{{ wordpress_path | dirname }}"
 
 # Autre façon de faire : git checkout
 - name: Synchroniser Wordpress depuis Github
