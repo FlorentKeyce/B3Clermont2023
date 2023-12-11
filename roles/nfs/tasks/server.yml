@@ -1,2 +1,26 @@
 ---
 
+- name: Install NFS server packages
+  apt:
+    name: nfs-kernel-server
+    state: latest
+
+- name: Ensure nfs-kernel-server is running and starts on boot
+  service:
+    name: nfs-kernel-server
+    state: started
+    enabled: yes
+
+- name: Check every fs exists
+  file:
+    path: "{{ item.fs }}"
+    state: directory
+  with_items: "{{ nfs_exports }}"
+
+- name: Configure /etc/exports
+  lineinfile:
+    path: /etc/exports
+    regexp: "^{{ item.fs }}[\t| ]"
+    line: "{{ item.fs }}	{{ item.client }}({{ item.options }})"
+  notify: Reload exports
+  with_items: "{{ nfs_exports }}"

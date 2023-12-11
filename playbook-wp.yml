@@ -8,13 +8,21 @@
 
 - name: Déploiement sur les serveurs web
   hosts: web
+  roles:
+    - nfs
+  vars:
+    - nfs_function: server
+    - nfs_exports:
+      - fs: "{{ wordpress_path }}"
+        client: "{{ hostvars[groups['php'][0]]['ansible_host'] }}"
+        options: rw,sync,fsid=0,no_subtree_check
   tasks:
     - name: Tâches web Apache
       include_tasks: tasks/web-apache.yml
     - name: Tâches web WP
       include_tasks: tasks/web-wp.yml
-    - name: Tâches web NFS
-      include_tasks: tasks/web-nfs.yml
+#    - name: Tâches web NFS
+#      include_tasks: tasks/web-nfs.yml
   handlers:
   # sudo systemctl restart nfs-kernel-server
   - name: Redémarrer nfs-kernel-server
@@ -29,11 +37,20 @@
 
 - name: Déploiement sur les serveurs PHP
   hosts: php
+  roles:
+    - nfs
+  vars:
+    - nfs_function: client
+    - nfs_mounts:
+      - server: "{{ hostvars[groups['web'][0]]['ansible_host'] }}"
+        server_fs: "{{ wordpress_path }}"
+        mountpoint: "{{ wordpress_path }}"
+        options: defaults
   tasks:
     - name: Tâches PHP-FPM
       include_tasks: tasks/php-fpm.yml
-    - name: Tâches PHP NFS
-      include_tasks: tasks/php-nfs.yml
+#    - name: Tâches PHP NFS
+#      include_tasks: tasks/php-nfs.yml
   handlers:
   - name: Redémarrer PHP-FPM
     service: 
