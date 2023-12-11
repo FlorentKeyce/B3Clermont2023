@@ -23,8 +23,14 @@
 #  debug:
 #    var: php_version.stdout
 
+- name: Ensure php-fpm is running and starts on boot
+  service:
+    name: "php{{ php_version.stdout }}-fpm"
+    state: started
+    enabled: yes
+
 - name: Configuration de PHP-FPM
   template:
-    src: files/fpm.conf
+    src: templates/fpm.conf
     dest: "/etc/php/{{ php_version.stdout }}/fpm/pool.d/wordpress.conf"
   notify: Redémarrer PHP-FPM

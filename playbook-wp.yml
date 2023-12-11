@@ -26,15 +26,8 @@
   hosts: php
   roles:
     - common
+    - php-fpm
     - nfs
-  tasks:
-    - name: Tâches PHP-FPM
-      include_tasks: tasks/php-fpm.yml
-  handlers:
-  - name: Redémarrer PHP-FPM
-    service: 
-      name: "php{{ php_version.stdout }}-fpm"
-      state: restarted
 
 - name: Déploiement sur les serveurs DB
   hosts: db
