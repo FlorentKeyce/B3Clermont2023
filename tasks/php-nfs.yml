@@ -1,2 +1,28 @@
 ---
 
+# sudo apt install nfs-common
+- name: Installer les paquets nécessaires
+  apt:
+    name: nfs-common
+    state: latest
+
+# Partie devenue inutile avec l'utilisation du module mount ci-dessous
+#- name: Configuration du montage dans fstab
+#  lineinfile:
+#    path: /etc/fstab
+#    regexp: "^{{ hostvars[groups['web'][0]]['ansible_host'] }}:{{ wordpress_path }}[\t| ]"
+#    line: "{{ hostvars[groups['web'][0]]['ansible_host'] }}:{{ wordpress_path }}	{{ wordpress_path }}	nfs	defaults	0	0"
+
+# Partie devenue inutile avec l'utilisation du module mount ci-dessous
+#- name: Création du point de montage
+#  file:
+#    path: "{{ wordpress_path }}"
+#    state: directory
+
+- name: Configuration et montage du système de fichiers
+  ansible.posix.mount:
+    src: "{{ hostvars[groups['web'][0]]['ansible_host'] }}:{{ wordpress_path }}"
+    path: "{{ wordpress_path }}"
+    opts: defaults
+    state: mounted
+    fstype: nfs
