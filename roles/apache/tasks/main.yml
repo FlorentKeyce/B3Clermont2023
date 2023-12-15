@@ -1,9 +1,16 @@
 ---
 
+- name: Inclure un fichier de variable selon la famille de distribution
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "{{ ansible_os_family }}.yml"
+      skip: True
+
 # sudo apt install apache2
 - name: Installer les paquets nécessaires
-  apt:
-    name: apache2
+  package:
+    name: "{{ apache_package_name }}"
     state: latest
 
 # Autre forme qui occupe moins de lignes

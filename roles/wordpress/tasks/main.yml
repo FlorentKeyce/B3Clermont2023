@@ -21,7 +21,7 @@
 
 # sudo apt install git
 - name: Installer les paquets nécessaires
-  apt:
+  package:
     name: git
     state: latest
 

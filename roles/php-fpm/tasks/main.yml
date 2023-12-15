@@ -2,7 +2,7 @@
 
 # sudo apt install php-fpm php-mysql
 - name: Installer les paquets nécessaires
-  apt:
+  package:
     name: 
       - php-fpm
       - php-mysql
