@@ -1,0 +1,12 @@
+---
+
+namespace: "openit"
+name: "wordpress_deploy"
+description: Déploiement de Wordpress avec Apache, PHP-FPM et MariaDB
+version: "1.0.0"
+readme: "README.md"
+authors:
+    - "Florent Bautista <florent.bautista@e-cdp.com>"
+license:
+    - "MIT"
+repository: "https://github.com/FlorentKeyce/B3Clermont2023"
