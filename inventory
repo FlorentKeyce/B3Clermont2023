@@ -1,9 +1,9 @@
 [web]
-ansible-infra1 ansible_host=10.42.42.7
+ansible-infra1 ansible_host=10.42.42.10
 
 [php]
-ansible-infra2 ansible_host=10.42.42.8
+ansible-infra2 ansible_host=10.42.42.11
 
 [db]
-ansible-infra3 ansible_host=10.42.42.9
+ansible-infra3 ansible_host=10.42.42.12
 

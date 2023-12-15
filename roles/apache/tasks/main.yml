@@ -31,14 +31,6 @@
     dest: /etc/apache2/sites-available/wordpress.conf
   notify: Redémarrer Apache
 
-# Activation du vhost wordpress
-- name: Activation du vhost wordpress
-  file:
-    src: /etc/apache2/sites-available/wordpress.conf
-    dest: /etc/apache2/sites-enabled/wordpress.conf
-    state: link
-  notify: Redémarrer Apache
-
 # sudo a2enmod proxy_fcgi
 - name: Activation du module proxy_fcgi
   apache2_module:
@@ -46,3 +38,10 @@
     state: present
   notify: Redémarrer Apache
 
+# Activation du vhost wordpress
+- name: Activation du vhost wordpress
+  file:
+    src: /etc/apache2/sites-available/wordpress.conf
+    dest: /etc/apache2/sites-enabled/wordpress.conf
+    state: link
+  notify: Redémarrer Apache
