@@ -1,0 +1,8 @@
+[web]
+ansible-infra1 ansible_host=10.42.42.XX
+
+[php]
+ansible-infra2 ansible_host=10.42.42.YY
+
+[db]
+ansible-infra3 ansible_host=10.42.42.ZZ
