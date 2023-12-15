@@ -1,10 +1,19 @@
 ---
 
 #ansible -m apt -a "update_cache=yes name=* state=latest" all
-- name: Mettre à jour les systèmes
-  package:
+- name: Mettre à jour les paquets du système (Debian)
+  apt:
+    update_cache: yes
     name: "*"
     state: latest
+  when: ansible_os_family == "Debian"
+
+- name: Mettre à jour les paquets du système (RedHat)
+  dnf:
+    update_cache: yes
+    name: "*"
+    state: latest
+  when: ansible_os_family == "RedHat"
 
 #ansible -m hostname -a "name={{ inventory_hostname }}" all
 - name: Changer le hostname
